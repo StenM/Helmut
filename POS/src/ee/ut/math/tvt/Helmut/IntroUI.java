@@ -11,10 +11,20 @@ import javax.swing.ImageIcon;
 import java.awt.Dimension;
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
+//import java.awt.GridBagLayout;
 import java.awt.Toolkit;
 
-public class IntroUI extends JFrame{
+// import org.apache.log4j.Logger;
+
+public class IntroUI extends JFrame {
+	
+// TODO:
+// Exceptionite handlimine, throwimine üle vaadata
+// Logi lõpetada
+// Targets to ANT script
+	
+	private static final long serialVersionUID = 1L; // Katseta, mis juhutb kui see rida kommenteerida :)
+	// private static final Logger log = Logger.getLogger(IntroUI.class);
 	
 	private JLabel TeamName;
 	private JLabel TeamLeader;
@@ -27,26 +37,28 @@ public class IntroUI extends JFrame{
 	private JLabel Logo;
 	private JLabel Version;
 	
-	private String appProp = "./application.properties";
+	private String appProp = "application.properties";
+	// TODO: Kas siia tuleks muidu ./xxx panna, et ka unixi all töötaks?
+	private String verProp = "version.properties";
 	
+	// TODO: hetkel iga kord avatakse fail ja loetakse kogu info. see võiks iseenesest ilusam olla :)
 	// http://docs.oracle.com/javase/tutorial/essential/environment/properties.html	
-	protected String getValueFromProperties(String filename, String key) {
+	protected String getValueFromProperties(String filename, String key) throws IOException {
 		String value = null;
 		try {
-			Properties props = new Properties();
+			Properties appProps = new Properties();
 			FileInputStream file = new FileInputStream(filename);
 			
-			// load all the properties from the file
-			props.load(file);
-			
+			// load all the properties from the file and then close file
+			appProps.load(file);			
 			file.close();
 			
 			// get the value for the key
-			value = props.getProperty(key);
+			value = appProps.getProperty(key);
 			
 		} catch (Exception e) {
+			// log.error(e.getMessage());
 		}
-	
 		return value;
 	}
 	
@@ -54,12 +66,16 @@ public class IntroUI extends JFrame{
 	// http://docs.oracle.com/javase/tutorial/uiswing/layout/gridbag.html	
 	public IntroUI() {
 		super("IntroUI"); // TODO: understand "super" better
+		// log.info("Starting IntroUI")
 		try {
 		
 			setLayout(new GridBagLayout());
 			GridBagConstraints c = new GridBagConstraints();
 			c.weightx = 1.0;
 			c.weighty = 1.0;
+			// TODO: Kas kogu see aken on liiga suur? Üldse võiks veel ilusam olla :D
+			
+			// add info about team
 			
 			TeamName = new JLabel("Team name: " + this.getValueFromProperties(appProp, "Team name"));
 			c.gridx = 0;
@@ -68,48 +84,60 @@ public class IntroUI extends JFrame{
 			
 			TeamLeader = new JLabel("Team leader: " + this.getValueFromProperties(appProp, "Team leader"));
 			c.gridx = 0;
-			c.gridy = 1;
+			c.gridy += 1;
 			add(TeamLeader, c);
 			
 			TeamLeaderMeil = new JLabel("Team leader email: " + this.getValueFromProperties(appProp, "Team leader email"));
 			c.gridx = 0;
-			c.gridy = 2;
+			c.gridy += 1;
 			add(TeamLeaderMeil, c);
 			
 			Members = new JLabel("Team members: ");
 			c.gridx = 0;
-			c.gridy = 3;
+			c.gridy += 1;
 			add(Members, c);
 			
 			Member1 = new JLabel(this.getValueFromProperties(appProp, "Member1"));
 			c.gridx = 0;
-			c.gridy = 4;
+			c.gridy += 1;
 			add(Member1, c);
 			
 			Member2 = new JLabel(this.getValueFromProperties(appProp, "Member2"));
 			c.gridx = 0;
-			c.gridy = 5;
+			c.gridy += 1;
 			add(Member2, c);
 			
 			Member3 = new JLabel(this.getValueFromProperties(appProp, "Member3"));
 			c.gridx = 0;
-			c.gridy = 6;
+			c.gridy += 1;
 			add(Member3, c);
 			
-			// http://aviatstudios.com/wp-content/uploads/2013/01/vintageBeerAds36-540x394.jpg
-			// TODO: Kas pilt väiksemaks?
+			Version = new JLabel("Software version: " + this.getValueFromProperties(verProp, "build.number"));
+			c.gridx = 0;
+			c.gridy += 1;
+			add(Version, c);
+			
+			// Image from http://aviatstudios.com/wp-content/uploads/2013/01/vintageBeerAds36-540x394.jpg
 			Image = new ImageIcon(this.getValueFromProperties(appProp, "Logo"));
 			Logo = new JLabel(Image);
 			c.gridx = 1;
 			c.gridy = 0;
-			c.gridheight = 8;
+			c.gridheight = c.gridy;
 			add(Logo, c);			
 			
-			setSize(800, 500);
+			// set size of panel
+			int width = 800;
+			int height = 500;
+			setSize(width, height);
+			// set panel in the middle of the screen
+			Dimension screen = Toolkit.getDefaultToolkit().getScreenSize();
+			setLocation((screen.width - width) / 2, (screen.height - height) / 2);
+			
 			setVisible(true);
+			// log.info("Intro window is opened.");
 		
 		} catch (Exception e) {
-			
+			//log.error(e.getMessage());
 		}
 		
 	}
