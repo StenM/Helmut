@@ -94,21 +94,25 @@ public class IntroUI extends JFrame {
 
 			Member1 = new JLabel(
 					this.getValueFromProperties(appProp, "Member1"));
+			c.gridx = 0;
 			c.gridy += 1;
 			add(Member1, c);
 
 			Member2 = new JLabel(
 					this.getValueFromProperties(appProp, "Member2"));
+			c.gridx = 0;
 			c.gridy += 1;
 			add(Member2, c);
 
 			Member3 = new JLabel(
 					this.getValueFromProperties(appProp, "Member3"));
+			c.gridx = 0;
 			c.gridy += 1;
 			add(Member3, c);
 
 			Version = new JLabel("Software version: "
 					+ this.getValueFromProperties(verProp, "build.number"));
+			c.gridx = 0;
 			c.gridy += 1;
 			add(Version, c);
 
