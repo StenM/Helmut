@@ -54,7 +54,7 @@
 	</target>
 	
 	<!-- https://ant.apache.org/manual/tutorial-HelloWorldWithAnt.html -->
-	<!-- Increase version number -->
+	<!-- Definition of increasing version number -->
 	<target name="increaseVersion">
 		<propertyfile file="version">
 			<entry key="build.revision.number" value="1" type="int" operation="+"/> 
@@ -71,13 +71,11 @@
 		</propertyfile>
 	</target>
 	
-	<!--  -->
     <target name="dist" depends="increaseVersion, build">
         <mkdir dir="${dist.dir}"/>
         <jar destfile="${dist.dir}/Helmut.jar" basedir="${build/classes.dir}">
             <manifest>
                 <attribute name="Main-Class" value="ee.ut.math.tvt.Helmut.Intro"/>
-            	<attribute name="Version" value="${new.build.number}"/>
             </manifest>
         </jar>
     </target>
