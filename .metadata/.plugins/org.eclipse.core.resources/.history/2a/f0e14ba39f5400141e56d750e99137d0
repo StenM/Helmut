@@ -93,7 +93,7 @@
     </target>
 
     <target name="jrun">
-        <java jar="${build.dir}/jar/Helmut.jar" fork="true"/>
+        <java jar="${build.dir}/jar/Helmut.jar" failonerror="true" fork="true"/>
     </target>
 
 	<!-- Build internal documentation -->

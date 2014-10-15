@@ -62,12 +62,12 @@
 		
 		<loadproperties srcFile="version.properties"/>
 			<property 
-		            name="new.build.number" 
+		            name="build.number" 
 		            value="${build.major.number}.${build.minor.number}.${build.revision.number}"
 		    />
 		
 		<propertyfile file="version.properties">
-			<entry key="build.number" value="${new.build.number}"/>
+			<entry key="build.number" value="${build.number}"/>
 		</propertyfile>
 	</target>
 	
@@ -77,7 +77,7 @@
         <jar destfile="${build.dir}/jar/Helmut.jar" basedir="${build.classes.dir}">
             <manifest>
                 <attribute name="Main-Class" value="ee.ut.math.tvt.Helmut.Intro"/>
-            	<attribute name="Version" value="${new.build.number}"/>
+            	<attribute name="Version" value="${build.number}"/>
             </manifest>
         </jar>
     <copy todir="${build.dir}/jar/lib">
