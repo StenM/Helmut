@@ -75,6 +75,7 @@
     <target name="dist" depends="increaseVersion, build" description="Make distribution">
         <jar destfile="${build.dir}/jar/Helmut.jar" basedir="${build.classes.dir}">
 			<fileset dir="${build.dir}" includes="*.jpg"/>
+        	<fileset dir="${build.dir}" includes="log4j.xml"/>
 			<fileset dir="${build.dir}" includes="*.properties"/>
 			<restrict>
 			   	<archives>

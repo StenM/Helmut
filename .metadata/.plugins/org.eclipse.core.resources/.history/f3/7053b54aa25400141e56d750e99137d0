@@ -72,20 +72,11 @@
 	</target>
 	
 	<!--  -->
-    <target name="dist" depends="increaseVersion, build" description="Make distribution">
+    <target name="dist" depends="increaseVersion, build">
+        <mkdir dir="${dist.dir}"/>
         <jar destfile="${build.dir}/jar/Helmut.jar" basedir="${build.classes.dir}">
-			<fileset dir="${build.dir}" includes="*.jpg"/>
-			<fileset dir="${build.dir}" includes="*.properties"/>
-			<restrict>
-			   	<archives>
-			    	<zips>
-			         	<fileset dir="lib" includes="**/*.jar"/>
-			       	</zips>
-			    </archives>
-			</restrict>
             <manifest>
                 <attribute name="Main-Class" value="ee.ut.math.tvt.Helmut.Intro"/>
-            	<attribute name="Class-Path" value="/lib/log4j-1.2.17.jar"/>
             	<attribute name="Version" value="${new.build.number}"/>
             </manifest>
         </jar>
@@ -101,7 +92,7 @@
     	
     </target>
 
-    <target name="jrun" description="Run .jar file">
+    <target name="jrun">
         <java jar="${build.dir}/jar/Helmut.jar" fork="true"/>
     </target>
 
