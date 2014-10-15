@@ -127,7 +127,7 @@ public class IntroUI extends JFrame {
 			add(Logo, c);			
 			
 			// set size of panel
-			int width = 900;
+			int width = 800;
 			int height = 500;
 			setSize(width, height);
 			// set panel in the middle of the screen

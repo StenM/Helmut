@@ -25,7 +25,7 @@ public class IntroUI extends JFrame {
 // Targets to ANT script
 	
 	private static final long serialVersionUID = 1L; // Katseta, mis juhutb kui see rida kommenteerida :)
-	private static final Logger log = Logger.getLogger(IntroUI.class);
+	private static final Logger log = Logger.getLogger(Intro.class);
 	
 	private JLabel TeamName;
 	private JLabel TeamLeader;
