@@ -14,7 +14,8 @@ import java.awt.GridBagConstraints;
 //import java.awt.GridBagLayout;
 import java.awt.Toolkit;
 
-// import org.apache.log4j.Logger;
+import org.apache.log4j.Logger;
+// http://www.wikihow.com/Add-JARs-to-Project-Build-Paths-in-Eclipse-(Java)
 
 public class IntroUI extends JFrame {
 	
@@ -24,7 +25,7 @@ public class IntroUI extends JFrame {
 // Targets to ANT script
 	
 	private static final long serialVersionUID = 1L; // Katseta, mis juhutb kui see rida kommenteerida :)
-	// private static final Logger log = Logger.getLogger(IntroUI.class);
+	private static final Logger log = Logger.getLogger(IntroUI.class);
 	
 	private JLabel TeamName;
 	private JLabel TeamLeader;
@@ -57,7 +58,7 @@ public class IntroUI extends JFrame {
 			value = appProps.getProperty(key);
 			
 		} catch (Exception e) {
-			// log.error(e.getMessage());
+			log.error(e.getMessage());
 		}
 		return value;
 	}
@@ -66,7 +67,7 @@ public class IntroUI extends JFrame {
 	// http://docs.oracle.com/javase/tutorial/uiswing/layout/gridbag.html	
 	public IntroUI() {
 		super("IntroUI"); // TODO: understand "super" better
-		// log.info("Starting IntroUI")
+		log.info("Starting IntroUI");
 		try {
 		
 			setLayout(new GridBagLayout());
@@ -134,10 +135,10 @@ public class IntroUI extends JFrame {
 			setLocation((screen.width - width) / 2, (screen.height - height) / 2);
 			
 			setVisible(true);
-			// log.info("Intro window is opened.");
+			log.info("Intro window is opened.");
 		
 		} catch (Exception e) {
-			//log.error(e.getMessage());
+			log.error(e.getMessage());
 		}
 		
 	}
