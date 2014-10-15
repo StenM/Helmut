@@ -1,0 +1,8 @@
+! Properties are configuration values managed as key/value pairs. 
+! In each pair, the key and value are both String values.
+Team\ name = Helmut
+Team\ leader = Sten Mõtus
+Team\ leader\ email = TODO@gmail.com
+Member1 = Joosep Norma
+Member2 = Kai Sarv
+Member3 = Gea Pajula

@@ -1,0 +1,33 @@
+package ee.ut.math.tvt.Helmut;
+
+import java.io.IOException;
+import java.io.FileInputStream;
+import java.util.Properties;
+
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+
+public class IntroUI extends JFrame{
+	
+	private JLabel TeamName;
+	
+	private String appProp = "./application.properties";
+	
+	// http://docs.oracle.com/javase/tutorial/essential/environment/properties.html
+	//Properties props = new Properties();
+	
+	/*try {
+		FileInputStream file = new FileInputStream("./application.properties");
+		
+	} catch (Exception e) {
+		//
+	}*/
+
+	try {
+		String a;
+	} catch (Exception e) {
+		System.out.println("Exception");
+	}
+	
+
+}
