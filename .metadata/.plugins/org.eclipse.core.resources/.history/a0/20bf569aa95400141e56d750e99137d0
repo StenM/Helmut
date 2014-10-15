@@ -39,11 +39,6 @@
 	<target name="build" description="Build the system">
 		<mkdir dir="${build.dir}"/>
 		<mkdir dir="${build.classes.dir}"/>
-		<copy todir="${src.dir}">
-			<fileset dir="${basedir}">
-    			<include name="log4j.properties"/>
-			</fileset>
-		</copy>
 		<javac
             srcdir="${src.dir}"
             destdir="${build.classes.dir}"
@@ -89,7 +84,7 @@
 			    </archives>
 			</restrict>
             <manifest>
-                <attribute name="Main-Class" value="ee.ut.math.tvt.Helmut.Intro"/>
+                <attribute name="Main Class" value="ee.ut.math.tvt.Helmut.Intro"/>
             	<attribute name="Version" value="${new.build.number}"/>
             </manifest>
         </jar>
