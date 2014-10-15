@@ -74,20 +74,20 @@
 	<!--  -->
     <target name="dist" depends="increaseVersion, build">
         <mkdir dir="${dist.dir}"/>
-        <jar destfile="${build.dir}/jar/Helmut.jar" basedir="${build.classes.dir}">
+        <jar destfile="${build.dir}/Helmut.jar" basedir="${build.classes.dir}">
             <manifest>
                 <attribute name="Main-Class" value="ee.ut.math.tvt.Helmut.Intro"/>
             	<attribute name="Version" value="${new.build.number}"/>
             </manifest>
         </jar>
-    <copy todir="${build.dir}/jar/lib">
+    <copy todir="${build.dir}/lib">
     	<fileset dir="${basedir}/lib" />
     </copy>
     	
     </target>
 
     <target name="jrun">
-        <java jar="${build.dir}/jar/Helmut.jar" fork="true"/>
+        <java jar="${dist.dir}/Helmut.jar" fork="true"/>
     </target>
 
 	<!-- Build internal documentation -->
