@@ -1,5 +1,0 @@
-! Properties are configuration values managed as key/value pairs. 
-! In each pair, the key and value are both String values.
-Team\ name = Helmut
-Team\ leader = Sten Motus
-Team\ leader\ email = @gmail.com
