@@ -4,15 +4,20 @@ import ee.ut.math.tvt.salessystem.domain.exception.VerificationFailedException;
 import ee.ut.math.tvt.salessystem.domain.controller.SalesDomainController;
 import ee.ut.math.tvt.salessystem.ui.model.SalesSystemModel;
 import ee.ut.math.tvt.salessystem.ui.panels.PurchaseItemPanel;
+
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+
 import org.apache.log4j.Logger;
 
 /**
@@ -165,20 +170,22 @@ public class PurchaseTab {
 
   /** Event handler for the <code>submit purchase</code> event. */
   protected void submitPurchaseButtonClicked() {
-    log.info("Sale complete");
     try {
       log.debug("Contents of the current basket:\n" + model.getCurrentPurchaseTableModel());
       domainController.submitCurrentPurchase(
           model.getCurrentPurchaseTableModel().getTableRows()
       );
-      //model.getCurrentPurchaseTableModel().clear();
-      //endSale();
+      Component paymentFrame = new JFrame("Payment details");
+      JOptionPane.showInputDialog(paymentFrame , "Please insert the payment amount:", "Payment details", 1);
+      model.getCurrentPurchaseTableModel().clear();
+      endSale();
+      log.info("Sale complete");
       //put those out the try-catch while it is not implemented
     } catch (VerificationFailedException e1) {
       log.error(e1.getMessage());
     }
-    model.getCurrentPurchaseTableModel().clear();
-    endSale();
+    //model.getCurrentPurchaseTableModel().clear();
+    //endSale();
   }
 
 

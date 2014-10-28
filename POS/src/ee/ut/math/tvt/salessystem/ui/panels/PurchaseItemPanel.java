@@ -3,7 +3,9 @@ package ee.ut.math.tvt.salessystem.ui.panels;
 import ee.ut.math.tvt.salessystem.domain.data.SoldItem;
 import ee.ut.math.tvt.salessystem.domain.data.StockItem;
 import ee.ut.math.tvt.salessystem.ui.model.SalesSystemModel;
+import ee.ut.math.tvt.salessystem.ui.model.StockTableModel;
 
+import java.awt.Component;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
@@ -18,7 +20,9 @@ import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JComponent;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -93,13 +97,21 @@ public class PurchaseItemPanel extends JPanel {
         quantityField = new JTextField("1");
         priceField = new JTextField();
         
+        // Add all possible product names to the jcombobox       
+        StockTableModel m1 = model.getWarehouseTableModel();
+        String [] productNames = new String[m1.getRowCount()];
+        for (int count=0; count<m1.getRowCount(); count++){
+        	productNames[count] = (String) m1.getValueAt(count, 1);
+        }
+
         
-        String [] productNames = {"Lays chips", "Frankfurters"};
+        
         nameField = new JComboBox(productNames);
 
 
-        // Fill the dialog fields if the bar code text field loses focus
-        barCodeField.addFocusListener(new FocusListener() {
+        // Fill the dialog fields if the nameField loses focus
+        // Does not work at the moment
+        nameField.addFocusListener(new FocusListener() {
             public void focusGained(FocusEvent e) {
             }
 
@@ -146,7 +158,6 @@ public class PurchaseItemPanel extends JPanel {
     public void fillDialogFields() {
         //StockItem stockItem = getStockItemByBarcode();
         StockItem stockItem = getStockItemByName();
-
         if (stockItem != null) {
             barCodeField.setText(stockItem.getId().toString());
             String priceString = String.valueOf(stockItem.getPrice());
@@ -172,8 +183,7 @@ public class PurchaseItemPanel extends JPanel {
     
     private StockItem getStockItemByName() {
     	try {
-            String name = (String) nameField.getSelectedItem(); //see ei tööta
-            System.out.println(name);
+    		String name = (String) nameField.getSelectedItem();
             return model.getWarehouseTableModel().getItemByName(name);
     	} catch (IllegalFormatException ex) {
             return null;
@@ -194,9 +204,15 @@ public class PurchaseItemPanel extends JPanel {
                 quantity = Integer.parseInt(quantityField.getText());
             } catch (NumberFormatException ex) {
                 quantity = 1;
-            }        
-            model.getCurrentPurchaseTableModel()
+            }
+            if (quantity <= stockItem.getQuantity()){
+            	model.getCurrentPurchaseTableModel()
                 .addItem(new SoldItem(stockItem, quantity));
+            }
+            else{
+            	Component notEnough = new JFrame("Not enough!");
+				JOptionPane.showMessageDialog(notEnough, "Not enough products in the warehouse!");
+            }
         }
     }
 
