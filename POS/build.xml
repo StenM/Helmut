@@ -95,6 +95,12 @@
 		</copy>
 
 	</target>
+	
+	<target name="runc" depends="build" description="Run the application (console)">
+		<java classname="ee.ut.math.tvt.Helmut.Intro" classpathref="test.classpath" fork="yes">
+			<arg value="console" />
+		</java>
+	</target>
 
 	<target name="jrun" description="Run .jar file">
 		<java jar="${build.dir}/jar/Helmut.jar" fork="true" />

@@ -171,11 +171,14 @@ public class PurchaseTab {
       domainController.submitCurrentPurchase(
           model.getCurrentPurchaseTableModel().getTableRows()
       );
-      endSale();
-      model.getCurrentPurchaseTableModel().clear();
+      //model.getCurrentPurchaseTableModel().clear();
+      //endSale();
+      //put those out the try-catch while it is not implemented
     } catch (VerificationFailedException e1) {
       log.error(e1.getMessage());
     }
+    model.getCurrentPurchaseTableModel().clear();
+    endSale();
   }
 
 
