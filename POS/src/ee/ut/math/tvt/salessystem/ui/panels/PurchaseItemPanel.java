@@ -172,7 +172,7 @@ public class PurchaseItemPanel extends JPanel {
     
     private StockItem getStockItemByName() {
     	try {
-            String name = (String) nameField.getSelectedItem(); //see ei tööta
+            String name = (String) nameField.getSelectedItem(); //see ei toota
             System.out.println(name);
             return model.getWarehouseTableModel().getItemByName(name);
     	} catch (IllegalFormatException ex) {
