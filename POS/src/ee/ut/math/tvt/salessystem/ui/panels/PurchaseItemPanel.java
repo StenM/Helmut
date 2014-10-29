@@ -40,10 +40,9 @@ public class PurchaseItemPanel extends JPanel {
     // Text field on the dialogPane
     private JTextField barCodeField;
     private JTextField quantityField;
-    //private JTextField nameField;
-    private JComboBox nameField;
     private JTextField priceField;
-
+    
+    private JComboBox nameField;
     private JButton addItemButton;
 
     // Warehouse model
@@ -99,26 +98,21 @@ public class PurchaseItemPanel extends JPanel {
         
         // Add all possible product names to the jcombobox       
         StockTableModel m1 = model.getWarehouseTableModel();
-        String [] productNames = new String[m1.getRowCount()];
+        String [] productNames = new String[m1.getRowCount()+1];
+        productNames[0] = "Select a product";
         for (int count=0; count<m1.getRowCount(); count++){
-        	productNames[count] = (String) m1.getValueAt(count, 1);
+        	productNames[count+1] = (String) m1.getValueAt(count, 1);
         }
-
         
         
-        nameField = new JComboBox(productNames);
-
-
-        // Fill the dialog fields if the nameField loses focus
-        // Does not work at the moment
-        nameField.addFocusListener(new FocusListener() {
-            public void focusGained(FocusEvent e) {
-            }
-
-            public void focusLost(FocusEvent e) {
+        nameField = new JComboBox(productNames);    
+        
+        nameField.addActionListener (new ActionListener () {
+            public void actionPerformed(ActionEvent e) {
                 fillDialogFields();
             }
         });
+              
 
         nameField.setEditable(true);
         priceField.setEditable(false);
@@ -208,6 +202,7 @@ public class PurchaseItemPanel extends JPanel {
             if (quantity <= stockItem.getQuantity()){
             	model.getCurrentPurchaseTableModel()
                 .addItem(new SoldItem(stockItem, quantity));
+            	stockItem.setQuantity(stockItem.getQuantity()-quantity);
             }
             else{
             	Component notEnough = new JFrame("Not enough!");

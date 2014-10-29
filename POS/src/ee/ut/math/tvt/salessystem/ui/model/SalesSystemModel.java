@@ -14,7 +14,11 @@ public class SalesSystemModel {
     // Warehouse model
     private StockTableModel warehouseTableModel;
     
-    // Current shopping cart model
+    public void setWarehouseTableModel(StockTableModel warehouseTableModel) {
+		this.warehouseTableModel = warehouseTableModel;
+	}
+
+	// Current shopping cart model
     private PurchaseInfoTableModel currentPurchaseTableModel;
 
     private final SalesDomainController domainController;

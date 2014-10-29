@@ -3,6 +3,7 @@ package ee.ut.math.tvt.salessystem.ui.tabs;
 import ee.ut.math.tvt.salessystem.domain.exception.VerificationFailedException;
 import ee.ut.math.tvt.salessystem.domain.controller.SalesDomainController;
 import ee.ut.math.tvt.salessystem.ui.model.SalesSystemModel;
+import ee.ut.math.tvt.salessystem.ui.model.StockTableModel;
 import ee.ut.math.tvt.salessystem.ui.panels.PurchaseItemPanel;
 
 import java.awt.Color;
@@ -39,6 +40,8 @@ public class PurchaseTab {
   private PurchaseItemPanel purchasePane;
 
   private SalesSystemModel model;
+  
+  //private StockTableModel startingStock = null;
 
 
   public PurchaseTab(SalesDomainController controller,
@@ -147,8 +150,9 @@ public class PurchaseTab {
   protected void newPurchaseButtonClicked() {
     log.info("New sale process started");
     try {
-      domainController.startNewPurchase();
-      startNewSale();
+    	//startingStock = model.getWarehouseTableModel();
+    	domainController.startNewPurchase();
+        startNewSale();
     } catch (VerificationFailedException e1) {
       log.error(e1.getMessage());
     }
@@ -158,6 +162,8 @@ public class PurchaseTab {
   /**  Event handler for the <code>cancel purchase</code> event. */
   protected void cancelPurchaseButtonClicked() {
     log.info("Sale cancelled");
+    //System.out.println(startingStock);
+    //model.setWarehouseTableModel(startingStock);
     try {
       domainController.cancelCurrentPurchase();
       endSale();
@@ -175,8 +181,10 @@ public class PurchaseTab {
       domainController.submitCurrentPurchase(
           model.getCurrentPurchaseTableModel().getTableRows()
       );
+      /** 
       Component paymentFrame = new JFrame("Payment details");
       JOptionPane.showInputDialog(paymentFrame , "Please insert the payment amount:", "Payment details", 1);
+      **/
       model.getCurrentPurchaseTableModel().clear();
       endSale();
       log.info("Sale complete");
@@ -195,6 +203,8 @@ public class PurchaseTab {
    */
 
   // switch UI to the state that allows to proceed with the purchase
+  
+  
   private void startNewSale() {
     purchasePane.reset();
 
