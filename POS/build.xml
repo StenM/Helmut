@@ -118,5 +118,65 @@
 	<target name="clean" description="Clean up build system results">
 		<delete dir="${build.dir}" />
 	</target>
+	
+	<!-- http://tlrobinson.net/blog/2008/11/ant-tasks-for-git/ -->
+	<macrodef name = "git">
+		<attribute name = "command" />
+		<attribute name = "dir" default = "" />
+		<element name = "args" optional = "true" />
+		<sequential>
+			<echo message = "git @{command}" />
+			<exec executable = "git" dir = "@{dir}">
+				<arg value = "@{command}" />
+				<args/>
+			</exec>
+		</sequential>
+	</macrodef>
+	
+	<!-- http://stackoverflow.com/questions/21674284/how-to-commit-projects-changes-to-git-using-ant -->
+	<target name="git_commit" description="Commit all changes to git">
+		<input message="Commit message" addproperty="commit-message" />
+		<input message="Username" addproperty="username" />
+		<input message="Password" addproperty="password" />
+		
+		<echo message="Commiting all changes with message ${commit-message}" />
+		<git command="add">
+			<args>
+				<arg value="." />
+			</args>
+		</git>
+		<git command="commit">
+			<args>
+				<arg value="-am ${commit-message}" />
+			</args>
+		</git>
+		<git command="push">
+			<args>
+				<arg value="https://${username}:${password}@github.com/StenM/Helmut.git" />
+			</args>
+		</git>
+	</target>
+
+	<target name="git_tag" description="Make a tag of current situation in git">
+		<input message="Tag name" addproperty="tag-name" />
+		<input message="Tag message" addproperty="tag-message" />
+		<input message="Username" addproperty="username" />
+		<input message="Password" addproperty="password" />
+		<echo message="Making a new tag with name ${tag-name} and message ${tag-message}" />
+        <git command="tag">
+			<args>
+				<arg value="-a" />
+				<arg value="${tag-name}" />
+				<arg value="-m" />
+				<arg value="${tag-message}" />
+			</args>
+        </git>
+	    <git command="push">
+	    	<args>
+	    		<arg value="--tags" />
+	    		<arg value="https://${username}:${password}@github.com/StenM/Helmut.git" />
+	    	</args>
+	    </git>
+	</target>
 
 </project>

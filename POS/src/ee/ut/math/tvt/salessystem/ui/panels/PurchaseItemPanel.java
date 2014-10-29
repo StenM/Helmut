@@ -105,7 +105,7 @@ public class PurchaseItemPanel extends JPanel {
         }
         
         
-        nameField = new JComboBox(productNames);    
+        nameField = new JComboBox<String>(productNames);    
         
         nameField.addActionListener (new ActionListener () {
             public void actionPerformed(ActionEvent e) {
@@ -177,8 +177,7 @@ public class PurchaseItemPanel extends JPanel {
     
     private StockItem getStockItemByName() {
     	try {
-            String name = (String) nameField.getSelectedItem(); //see ei toota
-            System.out.println(name);
+            String name = (String) nameField.getSelectedItem();
             return model.getWarehouseTableModel().getItemByName(name);
     	} catch (IllegalFormatException ex) {
             return null;
