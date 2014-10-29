@@ -33,7 +33,7 @@ import javax.swing.JTextField;
 /**
  * Purchase pane + shopping cart tabel UI.
  */
-public class PurchaseItemPanel extends JPanel {
+public class StockItemPanel extends JPanel {
 
     private static final long serialVersionUID = 1L;
 
@@ -54,7 +54,7 @@ public class PurchaseItemPanel extends JPanel {
      * @param model
      *            composite model of the warehouse and the shopping cart.
      */
-    public PurchaseItemPanel(SalesSystemModel model) {
+    public StockItemPanel(SalesSystemModel model) {
         this.model = model;
 
         setLayout(new GridBagLayout());

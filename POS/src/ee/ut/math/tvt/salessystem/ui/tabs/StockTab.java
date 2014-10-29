@@ -1,25 +1,44 @@
 package ee.ut.math.tvt.salessystem.ui.tabs;
 
+import ee.ut.math.tvt.salessystem.domain.controller.SalesDomainController;
+import ee.ut.math.tvt.salessystem.domain.exception.VerificationFailedException;
 import ee.ut.math.tvt.salessystem.ui.model.SalesSystemModel;
+import ee.ut.math.tvt.salessystem.ui.panels.StockItemPanel;
+import ee.ut.math.tvt.salessystem.domain.data.StockItem;
+
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.GridLayout;
+import java.math.BigDecimal;
+
 import javax.swing.BorderFactory;
+import javax.swing.Box;
 import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.JTableHeader;
+import javax.swing.JTextField;
 
+import org.apache.log4j.Logger;
 
 public class StockTab {
+	
+  private static final Logger log = Logger.getLogger(PurchaseTab.class);
 
   private JButton addItem;
 
   private SalesSystemModel model;
+  private final SalesDomainController domainController;
 
-  public StockTab(SalesSystemModel model) {
+  public StockTab(SalesDomainController controller, SalesSystemModel model) {
+	  this.domainController = controller;
     this.model = model;
   }
 
@@ -57,8 +76,10 @@ public class StockTab {
 
     gc.anchor = GridBagConstraints.NORTHWEST;
     gc.weightx = 0;
+    
+    // Initialize the button
+    addItem = createNewAddButton();
 
-    addItem = new JButton("Add");
     gc.gridwidth = GridBagConstraints.RELATIVE;
     gc.weightx = 1.0;
     panel.add(addItem, gc);
@@ -67,8 +88,77 @@ public class StockTab {
     return panel;
   }
 
+  // Creates the button "Add"
+  private JButton createNewAddButton() {
+    JButton b = new JButton("Add");
+    b.addActionListener(new ActionListener() {
+      public void actionPerformed(ActionEvent e) {
+        addButtonClicked();
+      }
+    });
 
-  // table of the wareshouse stock
+    return b;
+  }
+  
+  /* === Event handlers for the menu buttons
+   *     (get executed when the buttons are clicked)
+   */
+
+  /** Event handler for the <code>add</code> event. */
+  protected void addButtonClicked() {
+    log.info("Adding new item to stock started");
+    try {
+    	//startingStock = model.getWarehouseTableModel();
+    	//domainController.startNewPurchase();
+        //startNewSale();
+    	System.out.println("addButton");
+    	addNewItem();
+    //} catch (VerificationFailedException e1) {
+    } catch (Exception e1) {
+      log.error(e1.getMessage());
+    }
+  }
+  
+  private void addNewItem() {
+	  
+	  StockItem item = new StockItem();
+	  
+	  JPanel panel = new JPanel();
+	  panel.setLayout(new GridLayout(3, 2));
+      panel.setBorder(BorderFactory.createTitledBorder("New product"));
+      
+      // Initialize the textfields
+      JTextField nameField = new JTextField();
+      JTextField amountField = new JTextField();
+      JTextField priceField = new JTextField();
+
+      // == Add components to the panel
+
+      // - bar code
+      panel.add(new JLabel("Name:"));
+      panel.add(nameField);
+
+      // - amount
+      panel.add(new JLabel("Amount:"));
+      panel.add(amountField);
+
+      // - price
+      panel.add(new JLabel("Price:"));
+      panel.add(priceField);
+
+	    int result = JOptionPane.showConfirmDialog(null, panel, "Add new product", JOptionPane.OK_CANCEL_OPTION);
+	    System.out.println(result);
+	    
+	    if (result == JOptionPane.OK_OPTION) {
+	    	item.setName(nameField.getText());
+	    	item.setQuantity(Integer.parseInt(amountField.getText()));
+	    	item.setPrice(Double.parseDouble(amountField.getText()));
+	    }
+	    
+	    
+  }
+  
+  // table of the warehouse stock
   private Component drawStockMainPane() {
     JPanel panel = new JPanel();
 
