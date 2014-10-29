@@ -192,20 +192,14 @@ public class PurchaseTab {
       log.debug("Contents of the current basket:\n" + model.getCurrentPurchaseTableModel());
       domainController.submitCurrentPurchase(
           model.getCurrentPurchaseTableModel().getTableRows()
-      );
-      boolean finishSale = false;
-      PaymentPanel ppanel = new PaymentPanel(model);
-      if (finishSale){
-      model.getCurrentPurchaseTableModel().clear();
+      );     
+      new PaymentWindow(model);
       endSale();
-      log.info("Sale complete");
-      }
-      //put those out the try-catch while it is not implemented
+      
     } catch (VerificationFailedException e1) {
       log.error(e1.getMessage());
     }
-    //model.getCurrentPurchaseTableModel().clear();
-    //endSale();
+
   }
 
 
