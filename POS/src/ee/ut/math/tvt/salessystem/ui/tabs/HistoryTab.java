@@ -11,6 +11,10 @@ import javax.swing.JPanel;
 public class HistoryTab {
     
     // TODO - implement!
+	
+	private Date DateOfOrder;
+	private Time TimeOfOrder;
+	private float TotalOrderPrice;
 
     public HistoryTab() {} 
     

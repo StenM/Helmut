@@ -3,7 +3,6 @@ package ee.ut.math.tvt.salessystem.ui.tabs;
 import ee.ut.math.tvt.salessystem.domain.controller.SalesDomainController;
 import ee.ut.math.tvt.salessystem.domain.exception.VerificationFailedException;
 import ee.ut.math.tvt.salessystem.ui.model.SalesSystemModel;
-import ee.ut.math.tvt.salessystem.ui.panels.StockItemPanel;
 import ee.ut.math.tvt.salessystem.domain.data.StockItem;
 
 import java.awt.event.ActionEvent;
@@ -13,10 +12,8 @@ import java.awt.Component;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
-import java.math.BigDecimal;
 
 import javax.swing.BorderFactory;
-import javax.swing.Box;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -155,7 +152,14 @@ public class StockTab {
 	    	item.setPrice(Double.parseDouble(amountField.getText()));
 	    }
 	    
-	    
+	        // get the number of rows, to find the new ID
+	        int nrRows = model.getWarehouseTableModel().getRowCount();
+	        Object newId = model.getWarehouseTableModel().getValueAt(nrRows - 1, 0);
+
+	        item.setId(((long) newId) + 1);
+	        //domainController.addItemToStock(item);
+
+
   }
   
   // table of the warehouse stock
