@@ -6,16 +6,22 @@ import ee.ut.math.tvt.salessystem.ui.model.SalesSystemModel;
 import ee.ut.math.tvt.salessystem.ui.model.StockTableModel;
 import ee.ut.math.tvt.salessystem.ui.panels.PurchaseItemPanel;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.GridLayout;
+import java.awt.TextArea;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JMenuBar;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
@@ -181,13 +187,13 @@ public class PurchaseTab {
       domainController.submitCurrentPurchase(
           model.getCurrentPurchaseTableModel().getTableRows()
       );
-      /** 
-      Component paymentFrame = new JFrame("Payment details");
-      JOptionPane.showInputDialog(paymentFrame , "Please insert the payment amount:", "Payment details", 1);
-      **/
+      boolean finishSale = false;
+      finishSale = paymentPanel();
+      if (finishSale){
       model.getCurrentPurchaseTableModel().clear();
       endSale();
       log.info("Sale complete");
+      }
       //put those out the try-catch while it is not implemented
     } catch (VerificationFailedException e1) {
       log.error(e1.getMessage());
@@ -205,7 +211,44 @@ public class PurchaseTab {
   // switch UI to the state that allows to proceed with the purchase
   
   
-  private void startNewSale() {
+  private boolean paymentPanel() {
+	  
+	  JFrame paymentFrame = new JFrame("Payment details");
+	  JPanel[][] panelHolder = new JPanel[4][4];    
+	  paymentFrame.setLayout(new GridLayout(4,4));
+
+	  for(int m = 0; m < 4; m++) {
+	     for(int n = 0; n < 4; n++) {
+	        panelHolder[m][n] = new JPanel();
+	        paymentFrame.add(panelHolder[m][n]);
+	     }
+	  }
+
+	  //http://stackoverflow.com/questions/2510159/can-i-add-a-component-to-a-specific-grid-cell-when-a-gridlayout-is-used
+	  Dimension panelSize = new Dimension(500,400);
+	  paymentFrame.setPreferredSize(panelSize);
+	  
+	  JButton acceptButton = new JButton("Accept");  //this button should close the frame and return true for submitPurchaseButtonClicked()
+	  JButton declineButton = new JButton("Decline"); //this button should close the frame and return false for submitPurchaseButtonClicked()
+	  JButton enterButton = new JButton("Enter payment");
+	  
+	  
+	  panelHolder[0][1].add(new JLabel("Total sum:"));
+	  panelHolder[1][1].add(enterButton);
+	  panelHolder[2][1].add(new JLabel("Return amount:"));
+	  panelHolder[3][1].add(acceptButton);
+	  panelHolder[3][2].add(declineButton);
+
+      /*JOptionPane.showInputDialog(paymentFrame , "Please insert the payment amount:", "Payment details", 1);
+      */
+      paymentFrame.pack();
+      paymentFrame.setVisible(true);
+      
+      return true;
+}
+
+
+private void startNewSale() {
     purchasePane.reset();
 
     purchasePane.setEnabled(true);

@@ -25,7 +25,7 @@ public class Intro {
 
 			IntroUI introUI = new IntroUI();
 			introUI.setVisible(true);
-			introUI.setAlwaysOnTop(true);
+			introUI.setAlwaysOnTop(false);
 
 			final SalesSystemUI ui = new SalesSystemUI(domainController);
 			ui.setVisible(true);
