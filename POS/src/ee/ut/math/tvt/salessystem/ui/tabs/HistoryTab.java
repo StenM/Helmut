@@ -1,8 +1,17 @@
 package ee.ut.math.tvt.salessystem.ui.tabs;
 
 import java.awt.Component;
+import java.sql.Time;
+import java.util.Date;
 
 import javax.swing.JPanel;
+
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.table.JTableHeader;
+
+import ee.ut.math.tvt.salessystem.ui.model.SalesSystemModel;
+
 import java.util.Date;
 import java.sql.Time;
 
@@ -11,18 +20,39 @@ import java.sql.Time;
  * labelled "History" in the menu).
  */
 public class HistoryTab {
-    
-    // TODO - implement!
-	
+
+	// TODO - implement!
+
+	private SalesSystemModel model;
+	private JPanel panel;
 	private Date DateOfOrder;
 	private Time TimeOfOrder;
 	private float TotalOrderPrice;
 
-    public HistoryTab() {} 
-    
-    public Component draw() {
-        JPanel panel = new JPanel();
-        // TODO - Sales history tabel
-        return panel;
-    }
+	public HistoryTab() {
+
+	}
+
+	public HistoryTab(SalesSystemModel model) {
+		this.model = model;
+	}
+
+	public Component draw() {
+		panel = new JPanel();
+		// panel.add(drawHistoryPane());
+		return panel;
+	}
+
+	public Component drawHistoryPane() {
+		panel = new JPanel();
+
+		JTable table = new JTable(model.getCurrentPurchaseTableModel());
+
+		JTableHeader header = table.getTableHeader();
+		header.setReorderingAllowed(false);
+
+		JScrollPane scrollPane = new JScrollPane(table);
+
+		return panel;
+	}
 }
