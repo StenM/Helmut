@@ -2,6 +2,7 @@ package ee.ut.math.tvt.salessystem.ui.tabs;
 
 import ee.ut.math.tvt.salessystem.domain.controller.SalesDomainController;
 import ee.ut.math.tvt.salessystem.domain.exception.VerificationFailedException;
+import ee.ut.math.tvt.salessystem.ui.model.StockTableModel;
 import ee.ut.math.tvt.salessystem.ui.model.SalesSystemModel;
 import ee.ut.math.tvt.salessystem.domain.data.StockItem;
 
@@ -32,6 +33,8 @@ public class StockTab {
 	private JButton addItem;
 
 	private SalesSystemModel model;
+	private StockTableModel model_stock;
+
 	private final SalesDomainController domainController;
 
 	public StockTab(SalesDomainController controller, SalesSystemModel model) {
@@ -106,12 +109,7 @@ public class StockTab {
 	protected void addButtonClicked() {
 		log.info("Adding new item to stock started");
 		try {
-			// startingStock = model.getWarehouseTableModel();
-			// domainController.startNewPurchase();
-			// startNewSale();
-			System.out.println("addButton");
 			addNewItem();
-			// } catch (VerificationFailedException e1) {
 		} catch (Exception e1) {
 			log.error(e1.getMessage());
 		}
@@ -146,7 +144,6 @@ public class StockTab {
 
 		int result = JOptionPane.showConfirmDialog(null, panel,
 				"Add new product", JOptionPane.OK_CANCEL_OPTION);
-		System.out.println(result);
 
 		if (result == JOptionPane.OK_OPTION) {
 			item.setName(nameField.getText());
@@ -160,6 +157,7 @@ public class StockTab {
 
 		item.setId(((long) newId) + 1);
 		// domainController.addItemToStock(item);
+		model_stock.addItem(item);
 
 	}
 
