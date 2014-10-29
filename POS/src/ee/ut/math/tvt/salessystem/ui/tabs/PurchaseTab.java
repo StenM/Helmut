@@ -194,7 +194,7 @@ public class PurchaseTab {
           model.getCurrentPurchaseTableModel().getTableRows()
       );
       boolean finishSale = false;
-      finishSale = paymentPanel();
+      PaymentPanel ppanel = new PaymentPanel(model);
       if (finishSale){
       model.getCurrentPurchaseTableModel().clear();
       endSale();
@@ -216,68 +216,6 @@ public class PurchaseTab {
 
   // switch UI to the state that allows to proceed with the purchase
   
-  
-  private boolean paymentPanel() {
-	  
-	  JFrame paymentFrame = new JFrame("Payment details");
-	  JPanel[][] panelHolder = new JPanel[4][4];    
-	  paymentFrame.setLayout(new GridLayout(4,4));
-
-	  for(int m = 0; m < 4; m++) {
-	     for(int n = 0; n < 4; n++) {
-	        panelHolder[m][n] = new JPanel();
-	        paymentFrame.add(panelHolder[m][n]);
-	     }
-	  }
-
-	  //http://stackoverflow.com/questions/2510159/can-i-add-a-component-to-a-specific-grid-cell-when-a-gridlayout-is-used
-	  Dimension panelSize = new Dimension(500,400);
-	  Dimension genericSize = new Dimension(100,30);
-	  
-	  paymentFrame.setPreferredSize(panelSize);
-	  panelHolder[0][1].setBorder(new EmptyBorder(30, 0, 0, 0));
-	  panelHolder[0][2].setBorder(new EmptyBorder(30, 0, 0, 0));
-	  
-	  JButton acceptButton = new JButton("Accept");  //this button should close the frame and return true for submitPurchaseButtonClicked()
-	  JButton declineButton = new JButton("Decline"); //this button should close the frame and return false for submitPurchaseButtonClicked()
-	  JButton enterButton = new JButton("Enter payment");
-	  JTextField paymentField = new JTextField();
-	  JLabel totalSum = new JLabel(getSum());
-	  
-	  
-	  paymentField.setPreferredSize(genericSize);
-	  acceptButton.setPreferredSize(genericSize);
-	  declineButton.setPreferredSize(genericSize);
-	  enterButton.setPreferredSize(genericSize);
-	  
-	  panelHolder[0][1].add(new JLabel("Total sum:"));
-	  panelHolder[1][1].add(enterButton);
-	  panelHolder[1][2].add(paymentField);
-	  panelHolder[2][1].add(new JLabel("Return amount:"));
-	  panelHolder[3][1].add(acceptButton);
-	  panelHolder[3][2].add(declineButton);
-
-	  
-      paymentFrame.pack();
-      paymentFrame.setVisible(true);
-      
-      return true;
-}
-
-
-private String getSum() {
-	int sum = 0;
-	PurchaseInfoTableModel current = model.getCurrentPurchaseTableModel();
-	List listA = new ArrayList<Double>();
-	for (int i=0; i < current.getRowCount(); i++){
-	listA.add(current.getValueAt(i, 3));
-	System.out.println(current.getValueAt(i, 4));
-	}
-
-	//calculate sum above!
-	String totalsum = Integer.toString(sum);
-	return totalsum;
-}
 
 
 private void startNewSale() {
