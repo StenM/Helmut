@@ -45,4 +45,8 @@ public class SalesDomainControllerImpl implements SalesDomainController {
 		
 		return dataset;
 	}
+	
+	  public void addItemToStock(StockItem item) {
+	    //dataset.add(item);
+	  }
 }

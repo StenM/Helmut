@@ -3,6 +3,8 @@ package ee.ut.math.tvt.salessystem.ui.tabs;
 import java.awt.Component;
 
 import javax.swing.JPanel;
+import java.util.Date;
+import java.sql.Time;
 
 /**
  * Encapsulates everything that has to do with the purchase tab (the tab
@@ -11,6 +13,10 @@ import javax.swing.JPanel;
 public class HistoryTab {
     
     // TODO - implement!
+	
+	private Date DateOfOrder;
+	private Time TimeOfOrder;
+	private float TotalOrderPrice;
 
     public HistoryTab() {} 
     
