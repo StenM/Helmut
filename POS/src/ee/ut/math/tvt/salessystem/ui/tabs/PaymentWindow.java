@@ -1,19 +1,24 @@
 package ee.ut.math.tvt.salessystem.ui.tabs;
 
 import java.awt.Dimension;
+import java.awt.Frame;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.DecimalFormat;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
 import org.apache.log4j.Logger;
 
+import ee.ut.math.tvt.salessystem.domain.exception.VerificationFailedException;
+import ee.ut.math.tvt.salessystem.ui.model.HistoryTableModel;
 import ee.ut.math.tvt.salessystem.ui.model.PurchaseInfoTableModel;
 import ee.ut.math.tvt.salessystem.ui.model.SalesSystemModel;
 
@@ -29,7 +34,7 @@ public class PaymentWindow {
 	private JButton enterButton;
 	private JTextField paymentField;
 	private JLabel returnField;
-	private boolean paymentAccepted;
+	private boolean paymentAcceptable = false;
 
 	public PaymentWindow(SalesSystemModel model) {
 
@@ -59,7 +64,12 @@ public class PaymentWindow {
 												// submitPurchaseButtonClicked()
 		acceptButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				acceptButtonClicked();
+				try {
+					acceptButtonClicked();
+				} catch (VerificationFailedException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 			}
 
 		});
@@ -115,21 +125,39 @@ public class PaymentWindow {
 		return sum;
 	}
 
-	private void acceptButtonClicked() {
-		System.out.println("Should save the payment to history");
-		paymentAccepted = true;
-		model.getCurrentPurchaseTableModel().clear();
-		log.info("Sale complete");
-		paymentFrame.dispose();
+	private void acceptButtonClicked() throws VerificationFailedException {
+		if (paymentAcceptable){
+			model.getDomainController().submitCurrentPurchase(model.getCurrentPurchaseTableModel().getTableRows());
+			System.out.println("Should save the payment to history");
+			//submitCurrentPurchase();
+			log.info("Sale complete");
+			model.getCurrentPurchaseTableModel().clear();
+			paymentFrame.dispose();
+		}
+		else {
+			JOptionPane.showMessageDialog(new Frame(), "Paid amount should not be smaller than total cost!");
+			paymentField.setText("0.0");
+		}
 	}
+
+
 
 	private void enterButtonClicked() {
 		try {
 			String paymentString = paymentField.getText();
 			double paid = Double.parseDouble(paymentString);
 			double sum = getSum();
-			returnField.setText(Double.toString(paid - sum));
+			if (paid >= sum) {
+			returnField.setText((new DecimalFormat("#.##").format(paid - sum)));
+			paymentAcceptable = true;
+			}
+			else {
+				JOptionPane.showMessageDialog(new Frame(), "Paid amount should not be smaller than total cost!");
+				paymentField.setText("0.0");
+				paymentAcceptable = false;
+			}
 		} catch (NumberFormatException ex) {
+			paymentAcceptable = false;
 			paymentField.setText("0.0");
 		}
 	}
@@ -139,11 +167,10 @@ public class PaymentWindow {
 	}
 
 	public boolean isPaymentAccepted() {
-		return paymentAccepted;
+		return paymentAcceptable;
 	}
 
 	public void setPaymentFrame(JFrame paymentFrame) {
 		this.paymentFrame = paymentFrame;
 	}
-
 }

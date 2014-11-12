@@ -49,4 +49,5 @@ public interface SalesDomainController {
 			throws VerificationFailedException;
 
 	public void endSession();
+
 }

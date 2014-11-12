@@ -17,11 +17,7 @@ public class SalesDomainControllerImpl implements SalesDomainController {
 
 	public void submitCurrentPurchase(List<SoldItem> goods)
 			throws VerificationFailedException {
-		// Let's assume we have checked and found out that the buyer is
-		// underaged and
-		// cannot buy chupa-chups
-		// throw new VerificationFailedException("Underaged!");
-		// XXX - Save purchase
+		
 	}
 
 	public void cancelCurrentPurchase() throws VerificationFailedException {
@@ -60,4 +56,6 @@ public class SalesDomainControllerImpl implements SalesDomainController {
 	public void endSession() {
 		HibernateUtil.closeSession();
 	}
+
+
 }

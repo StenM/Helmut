@@ -1,5 +1,7 @@
 package ee.ut.math.tvt.salessystem.ui.model;
 
+import javax.swing.table.TableModel;
+
 import org.apache.log4j.Logger;
 
 import ee.ut.math.tvt.salessystem.domain.controller.SalesDomainController;
@@ -23,6 +25,12 @@ public class SalesSystemModel {
 
 	private final SalesDomainController domainController;
 
+	private HistoryTableModel historyTableModel = new HistoryTableModel();
+
+	public void setHistoryTableModel(HistoryTableModel historyTableModel) {
+		this.historyTableModel = historyTableModel;
+	}
+
 	/**
 	 * Construct application model.
 	 * 
@@ -34,6 +42,8 @@ public class SalesSystemModel {
 
 		warehouseTableModel = new StockTableModel();
 		currentPurchaseTableModel = new PurchaseInfoTableModel();
+		historyTableModel = new HistoryTableModel();
+
 
 		// populate stock model with data from the warehouse
 		warehouseTableModel.populateWithData(domainController
@@ -48,5 +58,15 @@ public class SalesSystemModel {
 	public PurchaseInfoTableModel getCurrentPurchaseTableModel() {
 		return currentPurchaseTableModel;
 	}
+
+	public HistoryTableModel getHistoryTableModel() {
+		return historyTableModel;
+	}
+
+	public SalesDomainController getDomainController() {
+		return domainController;
+	}
+
+
 
 }
