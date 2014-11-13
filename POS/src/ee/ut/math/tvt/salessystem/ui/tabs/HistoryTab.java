@@ -13,6 +13,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.JTableHeader;
 
+import ee.ut.math.tvt.salessystem.domain.controller.SalesDomainController;
 import ee.ut.math.tvt.salessystem.ui.model.HistoryTableModel;
 import ee.ut.math.tvt.salessystem.ui.model.SalesSystemModel;
 import ee.ut.math.tvt.salessystem.ui.model.StockTableModel;
@@ -43,7 +44,7 @@ public class HistoryTab {
 
 	}
 
-	public HistoryTab(SalesSystemModel model) {
+	public HistoryTab(SalesDomainController controller, SalesSystemModel model) {
 		this.model = model;
 		
 	}
@@ -78,8 +79,7 @@ public class HistoryTab {
 		
 		// Create some data
 		
-		//JTable table = new JTable(model.getHistoryTableModel());
-		JTable table = new JTable(new HistoryTableModel());
+		JTable table = new JTable(model.getHistoryTableModel());
 
 		JTableHeader header = table.getTableHeader();
 		header.setReorderingAllowed(false);

@@ -1,9 +1,11 @@
 package ee.ut.math.tvt.salessystem.ui.model;
 
+import java.util.List;
 import java.util.NoSuchElementException;
 
 import org.apache.log4j.Logger;
 
+import ee.ut.math.tvt.salessystem.domain.data.HistoryItem;
 import ee.ut.math.tvt.salessystem.domain.data.SoldItem;
 import ee.ut.math.tvt.salessystem.domain.data.StockItem;
 
@@ -42,6 +44,7 @@ public class HistoryTableModel extends SalesSystemTableModel<StockItem> {
 		System.out.println("Add item @ HistoryTableModel");
 	}
 
+	
 	/**
 	 * Add new stock item to table. If there already is a stock item with same
 	 * id, then existing item's quantity will be increased.
