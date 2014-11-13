@@ -146,18 +146,37 @@ public class StockTab {
 				"Add new product", JOptionPane.OK_CANCEL_OPTION);
 
 		if (result == JOptionPane.OK_OPTION) {
-			item.setName(nameField.getText());
-			item.setQuantity(Integer.parseInt(amountField.getText()));
-			item.setPrice(Double.parseDouble(amountField.getText()));
+			if (!nameField.getText().equals("")
+					&& Double.parseDouble(priceField.getText()) >= 0
+					&& Integer.parseInt(amountField.getText()) >= 0) {
+				item.setName(nameField.getText());
+				item.setQuantity(Integer.parseInt(amountField.getText()));
+				item.setPrice(Double.parseDouble(priceField.getText()));
+				
+				// get the number of rows, to find the new ID
+				int nrRows = model.getWarehouseTableModel().getRowCount();
+				Object newId = model.getWarehouseTableModel().getValueAt(nrRows - 1, 0);
+	
+				item.setId(((long) newId) + 1);
+				
+				// add this item to stock
+				
+				//model_stock.addItem(item);
+				try {
+			      domainController.addItemToStock(item);
+			      model.getWarehouseTableModel().addItem(item);
+			      model.getWarehouseTableModel().fireTableDataChanged();
+				} catch (Exception e1) {
+					log.error(e1.getMessage());			
+				}
+			}
+			else {
+				// Open new window with warning
+				JOptionPane.showMessageDialog(panel,
+						"Data was incorrect. Insert name; price and quantity must be nonnegative", 
+						"Warning", JOptionPane.WARNING_MESSAGE);
+			}	
 		}
-
-		// get the number of rows, to find the new ID
-		int nrRows = model.getWarehouseTableModel().getRowCount();
-		Object newId = model.getWarehouseTableModel().getValueAt(nrRows - 1, 0);
-
-		item.setId(((long) newId) + 1);
-		// domainController.addItemToStock(item);
-		model_stock.addItem(item);
 
 	}
 

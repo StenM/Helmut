@@ -34,15 +34,10 @@ public class HistoryTab {
 	private Time TimeOfOrder;
 	private float TotalOrderPrice;
 	private SalesSystemModel model;
-	private HistoryTableModel htm = new HistoryTableModel();
+	
 
-	public HistoryTableModel getHtm() {
-		return htm;
-	}
 
-	public void setHtm(HistoryTableModel htm) {
-		this.htm = htm;
-	}
+
 
 	public HistoryTab() {
 
@@ -50,7 +45,7 @@ public class HistoryTab {
 
 	public HistoryTab(SalesSystemModel model) {
 		this.model = model;
-
+		
 	}
 
 
@@ -83,7 +78,8 @@ public class HistoryTab {
 		
 		// Create some data
 		
-		JTable table = new JTable(htm);
+		//JTable table = new JTable(model.getHistoryTableModel());
+		JTable table = new JTable(new HistoryTableModel());
 
 		JTableHeader header = table.getTableHeader();
 		header.setReorderingAllowed(false);

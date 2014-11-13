@@ -6,6 +6,7 @@ import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.DecimalFormat;
+import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -17,6 +18,7 @@ import javax.swing.border.EmptyBorder;
 
 import org.apache.log4j.Logger;
 
+import ee.ut.math.tvt.salessystem.domain.data.SoldItem;
 import ee.ut.math.tvt.salessystem.domain.exception.VerificationFailedException;
 import ee.ut.math.tvt.salessystem.ui.model.HistoryTableModel;
 import ee.ut.math.tvt.salessystem.ui.model.PurchaseInfoTableModel;
@@ -128,8 +130,11 @@ public class PaymentWindow {
 	private void acceptButtonClicked() throws VerificationFailedException {
 		if (paymentAcceptable){
 			model.getDomainController().submitCurrentPurchase(model.getCurrentPurchaseTableModel().getTableRows());
+			List<SoldItem> sold = model.getCurrentPurchaseTableModel().getTableRows();
+			for (SoldItem s : sold){
+				model.getHistoryTableModel().addItem(s);				
+			}
 			System.out.println("Should save the payment to history");
-			//submitCurrentPurchase();
 			log.info("Sale complete");
 			model.getCurrentPurchaseTableModel().clear();
 			paymentFrame.dispose();

@@ -8,7 +8,7 @@
 	<property name="build.classes.dir" value="${build.dir}/classes" />
 	<property name="src.dir" value="${basedir}/src" />
 	<property name="dist.dir" value="${basedir}/dist" />
-	<property name="conf.dir" value="${basedir}/etc" />
+	<property name="conf.dir" value="${basedir}/conf" />
 	<property name="doc.dir" value="${build.dir}/doc" />
 	<property name="test.reports.dir" value="${build.dir}/reports/" />
 
@@ -27,6 +27,9 @@
 		<fileset dir="lib">
 			<include name="*.jar" />
 		</fileset>
+		<fileset dir="lib/hibernate">
+					<include name="*.jar" />
+				</fileset>
 	</path>
 
 	<!-- Definitions of runnable ant targets.
@@ -34,8 +37,8 @@
 
 	<target name="run" depends="build" description="Run the template application">
 		<java classname="ee.ut.math.tvt.Helmut.Intro" classpathref="test.classpath" fork="yes">
-			<jvmarg value="-Xdebug" />
-			<jvmarg value="-Xrunjdwp:transport=dt_socket,server=y,suspend=n,address=1046" />
+			<!-- <jvmarg value="-Xdebug" />
+			<jvmarg value="-Xrunjdwp:transport=dt_socket,server=y,suspend=n,address=1046" /> -->
 		</java>
 	</target>
 

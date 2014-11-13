@@ -1,8 +1,9 @@
 package ee.ut.math.tvt.salessystem.domain.controller.impl;
 
 import java.util.ArrayList;
-
 import java.util.List;
+
+import org.hibernate.Session;
 
 import ee.ut.math.tvt.salessystem.domain.exception.VerificationFailedException;
 import ee.ut.math.tvt.salessystem.domain.controller.SalesDomainController;
@@ -30,7 +31,7 @@ public class SalesDomainControllerImpl implements SalesDomainController {
 
 	public List<StockItem> loadWarehouseState() {
 		// XXX mock implementation
-		List<StockItem> dataset = new ArrayList<StockItem>();
+		/*List<StockItem> dataset = new ArrayList<StockItem>();
 
 		StockItem chips = new StockItem(1l, "Lays chips", "Potato chips", 11.0,
 				5);
@@ -45,7 +46,12 @@ public class SalesDomainControllerImpl implements SalesDomainController {
 		dataset.add(chupaChups);
 		dataset.add(frankfurters);
 		dataset.add(beer);
+		*/
+		List<StockItem> dataset = new ArrayList<StockItem>();
+		Session proovisession = HibernateUtil.currentSession();
+		dataset = proovisession.createQuery("from StockItem").list();
 
+		
 		return dataset;
 	}
 
@@ -54,7 +60,10 @@ public class SalesDomainControllerImpl implements SalesDomainController {
 	}
 
 	public void endSession() {
-		//HibernateUtil.closeSession();
+		HibernateUtil.closeSession();
+	}
+	public Session getSession(){
+		return HibernateUtil.currentSession();
 	}
 
 

@@ -15,6 +15,7 @@ public class SalesSystemModel {
 
 	// Warehouse model
 	private StockTableModel warehouseTableModel;
+	private HistoryTableModel historyTableModel;
 
 	public void setWarehouseTableModel(StockTableModel warehouseTableModel) {
 		this.warehouseTableModel = warehouseTableModel;
@@ -25,7 +26,6 @@ public class SalesSystemModel {
 
 	private final SalesDomainController domainController;
 
-	private HistoryTableModel historyTableModel = new HistoryTableModel();
 
 	public void setHistoryTableModel(HistoryTableModel historyTableModel) {
 		this.historyTableModel = historyTableModel;
@@ -43,7 +43,7 @@ public class SalesSystemModel {
 		warehouseTableModel = new StockTableModel();
 		currentPurchaseTableModel = new PurchaseInfoTableModel();
 		historyTableModel = new HistoryTableModel();
-		historyTableModel.populateWithData(domainController.loadWarehouseState());
+		//historyTableModel.populateWithData(domainController.loadWarehouseState());
 
 		// populate stock model with data from the warehouse
 		warehouseTableModel.populateWithData(domainController

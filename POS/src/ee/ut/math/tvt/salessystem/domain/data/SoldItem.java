@@ -5,13 +5,18 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
 
 
 /**
  * Already bought StockItem. SoldItem duplicates name and price for preserving history. 
  */
-@Entity(name = "SOLDITEM")
+
+@Entity
+@Table(name = "SOLDITEM")
 public class SoldItem implements Cloneable, DisplayableItem {
 
 
@@ -19,6 +24,10 @@ public class SoldItem implements Cloneable, DisplayableItem {
 	@Column(name = "ID", nullable = false)
 	@GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+	
+	//@Column(name = "STOCKITEM")
+	@ManyToOne
+    @JoinColumn(name = "STOCKITEM_ID")
     private StockItem stockItem;
     
     @Column(name = "NAME")

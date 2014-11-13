@@ -161,6 +161,7 @@ public class PurchaseTab {
 	/** Event handler for the <code>cancel purchase</code> event. */
 	protected void cancelPurchaseButtonClicked() {
 		log.info("Sale cancelled");
+		// Should add items from purchasetable to stocktable
 		// System.out.println(startingStock);
 		// model.setWarehouseTableModel(startingStock);
 		try {
