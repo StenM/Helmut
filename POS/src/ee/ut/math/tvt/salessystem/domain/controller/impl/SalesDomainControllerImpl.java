@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.hibernate.Session;
+import org.apache.log4j.Logger;
+import org.hibernate.Query;
 
 import ee.ut.math.tvt.salessystem.domain.exception.VerificationFailedException;
 import ee.ut.math.tvt.salessystem.domain.controller.SalesDomainController;
@@ -16,9 +18,40 @@ import ee.ut.math.tvt.salessystem.util.HibernateUtil;
  * Implementation of the sales domain controller.
  */
 public class SalesDomainControllerImpl implements SalesDomainController {
+	
+	Session session = HibernateUtil.currentSession();
+	private static final Logger log = Logger.getLogger(SalesDomainControllerImpl.class);
 
 	public void submitCurrentPurchase(List<SoldItem> goods)
 			throws VerificationFailedException {
+		try {
+			// add solditems to database and for each solditem decrease the stockitem quantity
+			for (SoldItem item : goods) {
+				session.beginTransaction();
+				session.save(item);
+				//String name = item.getName();
+				// find the current item quantity in stock
+				Query item_query = session.createQuery("from StockItem where name=:item_name");
+				item_query.setParameter("item_name",item.getName());
+	
+				List<StockItem> stockitems = item_query.list();
+				int current_quantity = stockitems.get(0).getQuantity();
+				int sold_quantity = item.getQuantity();
+				int new_quantity = current_quantity - sold_quantity;
+				// update item quantity
+				Query update_query = session.createQuery("update StockItem set quantity=:quantity where name=:name");
+				update_query.setParameter("quantity", new_quantity);
+				update_query.setParameter("name",item.getName());
+				update_query.executeUpdate();
+				session.getTransaction().commit();
+				session.clear();		
+				
+				
+			}
+			
+		} catch (Exception e1) {
+			log.error("Submitting new solditem failed");
+		}
 		
 	}
 
@@ -33,41 +66,51 @@ public class SalesDomainControllerImpl implements SalesDomainController {
 	public List<StockItem> loadWarehouseState() {
 		// XXX mock implementation
 		/*List<StockItem> dataset = new ArrayList<StockItem>();
-
-		StockItem chips = new StockItem(1l, "Lays chips", "Potato chips", 11.0,
-				5);
-		StockItem chupaChups = new StockItem(2l, "Chupa-chups", "Sweets", 8.0,
-				8);
-		StockItem frankfurters = new StockItem(3l, "Frankfurters",
-				"Beer sauseges", 15.0, 12);
-		StockItem beer = new StockItem(4l, "Free Beer", "Student's delight",
-				0.0, 100);
-
+		StockItem chips = new StockItem(1l, "Lays chips", "Potato chips", 11.0, 5);
 		dataset.add(chips);
-		dataset.add(chupaChups);
-		dataset.add(frankfurters);
-		dataset.add(beer);
 		*/
 		List<StockItem> dataset = new ArrayList<StockItem>();
-		Session proovisession = HibernateUtil.currentSession();
-		dataset = proovisession.createQuery("from StockItem").list();
-
-		
+		dataset = session.createQuery("from StockItem").list();		
 		return dataset;
 	}
 
 	public void addItemToStock(StockItem item) {
-		Session session = HibernateUtil.currentSession();
+		// if item already exists
+		/*try {
+			String name = item.getName();
+			System.out.println(item);
+			System.out.println(name);
+			// find the current item quantity in stock
+			Query item_query = session.createQuery("from StockItem where name=:name");
+			item_query.setParameter("name",item.getName());
+			
+			System.out.println(item_query);
+			List<StockItem> stockitems = item_query.list();
+			System.out.println(stockitems);
+			int current_quantity = stockitems.get(0).getQuantity();
+			int added_quantity = item.getQuantity();
+			int new_quantity = current_quantity + added_quantity;
+			System.out.println(new_quantity);
+			// update item quantity
+			Query update_query = session.createQuery("update StockItem set quantity=:new_quantity where name=:name");
+			update_query.setParameter("quantity", new_quantity);
+			update_query.executeUpdate();
+			session.getTransaction().commit();
+			session.clear();	
+		} catch (Exception e1) {
+			*/
+		// new item
+			session.beginTransaction();
+			session.save(item);
+			session.getTransaction().commit();
+			//log.error("Submitting new solditem failed");
+		//}
+	}
+	
+	public void addHistoryItemToDatabase(HistoryItem item) {
 		session.beginTransaction();
 		session.save(item);
 		session.getTransaction().commit();
-	}
-	
-	public void addHistoryItemToDatabase (HistoryItem item){
-		Session proovisession = HibernateUtil.currentSession();
-		proovisession.beginTransaction();
-		proovisession.save(item);
-		proovisession.getTransaction().commit();
 	}
 
 	public void endSession() {
@@ -80,8 +123,7 @@ public class SalesDomainControllerImpl implements SalesDomainController {
 	@Override
 	public List<HistoryItem> loadHistoryState() {
 		List<HistoryItem> dataset = new ArrayList<HistoryItem>();
-		Session proovisession = HibernateUtil.currentSession();
-		dataset = proovisession.createQuery("from HistoryItem").list();
+		dataset = session.createQuery("from HistoryItem").list();
 		System.out.println(dataset);
 		return dataset;
 	}
