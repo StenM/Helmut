@@ -5,7 +5,10 @@ import java.awt.Frame;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.DateFormat;
 import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import javax.swing.JButton;
@@ -18,6 +21,7 @@ import javax.swing.border.EmptyBorder;
 
 import org.apache.log4j.Logger;
 
+import ee.ut.math.tvt.salessystem.domain.data.HistoryItem;
 import ee.ut.math.tvt.salessystem.domain.data.SoldItem;
 import ee.ut.math.tvt.salessystem.domain.exception.VerificationFailedException;
 import ee.ut.math.tvt.salessystem.ui.model.HistoryTableModel;
@@ -131,10 +135,20 @@ public class PaymentWindow {
 		if (paymentAcceptable){
 			model.getDomainController().submitCurrentPurchase(model.getCurrentPurchaseTableModel().getTableRows());
 			List<SoldItem> sold = model.getCurrentPurchaseTableModel().getTableRows();
+			double currentcost = 0;
 			for (SoldItem s : sold){
-				model.getHistoryTableModel().addItem(s);				
+				double cost = s.getSum();
+				currentcost = currentcost + cost;			
 			}
-			System.out.println("Should save the payment to history");
+			DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
+			DateFormat timeFormat = new SimpleDateFormat("HH:mm:ss");
+			Date date = new Date();
+			String currentdate = dateFormat.format(date);
+			String currenttime = timeFormat.format(date);
+			int saleId = model.getHistoryTableModel().getRowCount();
+			HistoryItem history = new HistoryItem(saleId, currentdate, currenttime, currentcost);
+			model.getHistoryTableModel().addItem(history);	
+			model.getDomainController().addHistoryItemToDatabase(history);
 			log.info("Sale complete");
 			model.getCurrentPurchaseTableModel().clear();
 			paymentFrame.dispose();

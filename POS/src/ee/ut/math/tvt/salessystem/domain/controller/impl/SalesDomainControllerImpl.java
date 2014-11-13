@@ -59,6 +59,10 @@ public class SalesDomainControllerImpl implements SalesDomainController {
 	public void addItemToStock(StockItem item) {
 		// dataset.add(item);
 	}
+	
+	public void addHistoryItemToDatabase (HistoryItem item){
+		//dataset.add(item);
+	}
 
 	public void endSession() {
 		HibernateUtil.closeSession();

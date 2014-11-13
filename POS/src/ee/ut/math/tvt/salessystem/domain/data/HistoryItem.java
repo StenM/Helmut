@@ -24,6 +24,9 @@ public class HistoryItem implements DisplayableItem{
 	@Column(name = "TOTAL")
     private double total;
 
+	
+	public HistoryItem() {
+	}
 
 	/**
 	 * Constucts new <code>StockItem</code> with the specified values.
@@ -40,6 +43,14 @@ public class HistoryItem implements DisplayableItem{
 	
 
 
+
+	public HistoryItem(int saleId, String currentdate, String currenttime,
+			double currentcost) {
+		this.id = (long) saleId;
+		this.date = currentdate;
+		this.time = currenttime;
+		this.total = currentcost;
+	}
 
 	/**
 	 * Constructs new <code>StockItem</code>.

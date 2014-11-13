@@ -49,6 +49,8 @@ public interface SalesDomainController {
 	public void addItemToStock(StockItem item)
 			throws VerificationFailedException;
 
+	public void addHistoryItemToDatabase (HistoryItem item);
+	
 	public void endSession();
 
 	public List<HistoryItem> loadHistoryState();
