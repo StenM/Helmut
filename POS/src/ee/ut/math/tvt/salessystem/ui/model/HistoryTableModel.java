@@ -12,7 +12,7 @@ import ee.ut.math.tvt.salessystem.domain.data.StockItem;
 /**
  * History table model.
  */
-public class HistoryTableModel extends SalesSystemTableModel<StockItem> {
+public class HistoryTableModel extends SalesSystemTableModel<HistoryItem> {
 	
 
 	private static final long serialVersionUID = 1L;
@@ -21,27 +21,37 @@ public class HistoryTableModel extends SalesSystemTableModel<StockItem> {
 
 	
 	public HistoryTableModel() {
-		super(new String[] { "Date", "Time", "Sum" });
+		super(new String[] { "Id", "Date", "Time", "Sum" });
 	}
 
 	
 	@Override
-	protected Object getColumnValue(StockItem item, int columnIndex) {
+	protected Object getColumnValue(HistoryItem item, int columnIndex) {
 		switch (columnIndex) {
 		case 0:
 			return item.getId();
 		case 1:
-			return item.getName();
+			return item.getDate();
 		case 2:
-			return item.getPrice();
+			return item.getTime();
 		case 3:
-			return item.getQuantity();
+			return item.getTotal();
 		}
 		throw new IllegalArgumentException("Column index out of range");
 	}
 	
-	public void addItem(SoldItem s) {
-		System.out.println("Add item @ HistoryTableModel");
+	public void addItem(final HistoryItem historyItem) {
+		/*try {
+			StockItem item = getItemById(stockItem.getId());
+			item.setQuantity(item.getQuantity() + stockItem.getQuantity());
+			log.debug("Found existing item " + stockItem.getName()
+					+ " increased quantity by " + stockItem.getQuantity());
+		} catch (NoSuchElementException e) {
+		*/
+		rows.add(historyItem);
+		log.debug("Added " + historyItem.getId() + " sum of "
+					+ historyItem.getTotal());
+		fireTableDataChanged();
 	}
 
 	

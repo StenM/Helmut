@@ -70,6 +70,14 @@ public class HistoryItem implements DisplayableItem{
 	public void setTime(String time) {
 		this.time = time;
 	}
+	
+	public double getTotal() {
+		return total;
+	}
+
+	public void setTotal(double total) {
+		this.total = total;
+	}
 
 	public String toString() {
 		return id + " " + date + " " + time + " " + total;
