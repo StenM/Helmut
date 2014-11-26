@@ -18,11 +18,13 @@ public class HistoryItemTest {
 	}
 	@Test
 	public void testGetColumn() {		
+		assertEquals(history1.getColumn(0), 1L);
 		assertEquals(history1.getColumn(1), "26.11.2014");
 		assertEquals(history1.getColumn(2), "19.12");
 		assertEquals(history1.getColumn(3), 2.50);
 
 	}
+	
 	@Test
 	public void testToString() {
 		assertEquals(history1.toString(),"1 26.11.2014 19.12 2.5");

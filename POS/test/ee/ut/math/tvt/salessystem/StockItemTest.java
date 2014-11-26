@@ -23,7 +23,6 @@ public class StockItemTest {
 		assertEquals(stock1.getColumn(2), "Piim");
 		assertEquals(stock1.getColumn(3), 10.5);
 		assertEquals(stock1.getColumn(4), 1);
-		
 	}
 
 	@Test
@@ -34,6 +33,11 @@ public class StockItemTest {
 		assertEquals(stock1.clone().getName(), stock1.getName());
 		assertEquals(stock1.clone().getPrice(), stock1.getPrice(), 0.001);
 		assertEquals(stock1.clone().getQuantity(), stock1.getQuantity());
+	}
+	
+	@Test
+	public void testStockItemToString() {
+		assertEquals(stock1.toString(), "0 Tere Piim 10.5");
 	}
 	
 }

@@ -13,24 +13,34 @@ public class SoldItemTest {
 	private StockItem stock1;
 	private SoldItem sold1;
 	private SoldItem sold2;
+	private StockItem stock2;
+	private SoldItem sold3;
 	
 	@Before
 	public void setUp() {
 		stock1 = new StockItem(0L, "Tere", "Piim", 10.5, 3);
 		sold1 = new SoldItem(stock1, 2);
 		sold2 = new SoldItem(stock1, 0);
+		
+		stock2 = new StockItem();
+		sold3 = new SoldItem(stock2, 1);
 	  }
 
 	
 	@Test
     public void testGetSum(){
 		assertEquals(sold1.getSum(), 21.00, 0.00001);
-    	
     }
     
 	@Test
     public void testGetSumWithZeroQuantity(){
     	assertEquals(sold2.getSum(), 0, 0.00001);
     }
+	
+	@Test
+    public void testGetSumWithEmptyStockItem(){
+    	assertEquals(sold3.getSum(), 0, 0.00001);
+    }
+	
 	
 }

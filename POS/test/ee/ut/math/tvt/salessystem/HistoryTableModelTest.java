@@ -1,11 +1,11 @@
 package ee.ut.math.tvt.salessystem;
 
+import static org.junit.Assert.*;
+
 import org.junit.Before;
 import org.junit.Test;
 
 import ee.ut.math.tvt.salessystem.domain.data.HistoryItem;
-import ee.ut.math.tvt.salessystem.domain.data.SoldItem;
-import ee.ut.math.tvt.salessystem.domain.data.StockItem;
 import ee.ut.math.tvt.salessystem.ui.model.HistoryTableModel;
 
 public class HistoryTableModelTest {
@@ -20,8 +20,15 @@ public class HistoryTableModelTest {
 	  }
 	
 	@Test
-    public void testSomethingWithHistoryTable(){
-    	
+    public void testAddItem(){
+    	historyTable.addItem(historyItem);
+    	assertEquals(historyTable.getTableRows().contains(historyItem), true);
+    }
+	
+	@Test
+    public void testGetItemById(){
+    	historyTable.addItem(historyItem);
+    	assertEquals(historyTable.getItemById(1L), historyItem);    	 	
     }
 
 }

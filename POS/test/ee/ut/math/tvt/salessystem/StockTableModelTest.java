@@ -33,7 +33,7 @@ public class StockTableModelTest {
     @Test
     public void testValidateNameUniqueness(){
     	//tests if an item with the same name already exists it is not added on a new row
-    	assertEquals(0, model0.getRowCount(), 0.001);
+    	assertEquals(0, model1.getRowCount(), 0.001);
     	model1.addItem(item1);
     	model1.addItem(item2);
     	assertEquals(1, model1.getRowCount(), 0.001);
@@ -56,5 +56,11 @@ public class StockTableModelTest {
     @Test(expected=NoSuchElementException.class)
     public void testGetItemByIdWhenThrowsException(){
     	model0.getItemById(999);
+    }
+    
+    @Test
+    public void testGetItemByName(){
+    	model0.addItem(item1);
+    	assertEquals(model0.getItemByName("Tere"), item1);	
     }
 }
