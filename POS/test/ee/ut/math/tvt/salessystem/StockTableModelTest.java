@@ -2,6 +2,8 @@ package ee.ut.math.tvt.salessystem;
 
 import static org.junit.Assert.*;
 
+import java.util.NoSuchElementException;
+
 import org.junit.Before;
 
 
@@ -37,19 +39,23 @@ public class StockTableModelTest {
     	assertEquals(1, model1.getRowCount(), 0.001);
     }
     
-    // TODO
+    @Test
     public void testHasEnoughInStock(){
-    	
+    	model0.addItem(item1);
+    	assertEquals(false, model0.hasEnoughInStock(item1, 5));
+    	assertEquals(true, model0.hasEnoughInStock(item1, 1));   	
     }
     
-    // TODO
+    @Test
     public void testGetItemByIdWhenItemExists(){
+    	model0.addItem(item1);
+    	assertEquals(model0.getItemById(0), item1);
     	
     }
     
     
-    // TODO
+    @Test(expected=NoSuchElementException.class)
     public void testGetItemByIdWhenThrowsException(){
-    	
+    	model0.getItemById(999);
     }
 }
