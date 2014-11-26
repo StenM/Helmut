@@ -117,8 +117,10 @@ public class StockItem implements Cloneable, DisplayableItem {
 		case 1:
 			return name;
 		case 2:
-			return new Double(price);
+			return description;
 		case 3:
+			return new Double(price);
+		case 4:
 			return new Integer(quantity);
 		default:
 			throw new RuntimeException("invalid column!");
