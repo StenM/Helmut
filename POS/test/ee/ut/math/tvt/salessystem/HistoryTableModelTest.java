@@ -1,6 +1,7 @@
 package ee.ut.math.tvt.salessystem;
 
 import org.junit.Before;
+import org.junit.Test;
 
 import ee.ut.math.tvt.salessystem.domain.data.HistoryItem;
 import ee.ut.math.tvt.salessystem.domain.data.SoldItem;
@@ -18,7 +19,7 @@ public class HistoryTableModelTest {
 		historyTable = new HistoryTableModel();
 	  }
 	
-	// TODO
+	@Test
     public void testSomethingWithHistoryTable(){
     	
     }

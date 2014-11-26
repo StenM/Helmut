@@ -65,6 +65,7 @@
 	<target name="build" description="Build the system">
 		<mkdir dir="${build.dir}" />
 		<mkdir dir="${build.classes.dir}" />
+		<mkdir dir="${build.test.dir}" />
 		<copy todir="${src.dir}">
 			<fileset dir="${basedir}">
 				<include name="log4j.properties" />

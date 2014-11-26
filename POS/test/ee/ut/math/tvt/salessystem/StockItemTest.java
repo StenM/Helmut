@@ -22,9 +22,18 @@ public class StockItemTest {
 		assertEquals(stock1.getColumn(1), "Tere"); 
     }
 	
-	// TODO
-    public void testClone(){
-    	
+	@Test
+	public void testClone(){
+    	assertEquals(stock1.clone().getName(), stock1.getName());
+    	assertEquals(stock1.clone().getId(), stock1.getId());
+    	assertEquals(stock1.clone().getDescription(), stock1.getDescription());
+    	assertEquals(stock1.clone().getName(), stock1.getName());
+    	assertEquals(stock1.clone().getPrice(), stock1.getPrice(),0.001);
+    	assertEquals(stock1.clone().getQuantity(), stock1.getQuantity());
+
+
+
+
     }
     
     
