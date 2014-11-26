@@ -56,10 +56,10 @@ public class ClientTableModel extends SalesSystemTableModel<Client> {
 		return rows;
 	}
 	
-//	@Override
-//	public void clear() {
-//		rows = new ArrayList<Client>();
-//		fireTableDataChanged();
-//	}
+	@Override
+	public void clear() {
+		rows = new ArrayList<Client>();
+		fireTableDataChanged();
+	}
 	
 }

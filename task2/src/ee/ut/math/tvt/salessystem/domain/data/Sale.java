@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -14,6 +15,11 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import org.hibernate.Query;
+
+import ee.ut.math.tvt.salessystem.domain.exception.SalesSystemException;
+import ee.ut.math.tvt.salessystem.util.HibernateUtil;
 
 /**
  * Sale object. Contains client and sold items.
@@ -63,7 +69,10 @@ public class Sale implements DisplayableItem {
     }
 
     public Set<SoldItem> getSoldItems() {
-        return soldItems;
+    	if (this.soldItems == null) { // added line
+    		this.soldItems = new HashSet<SoldItem>(); // added line
+    	}
+        return this.soldItems;
     }
 
     public void setSoldItems(Set<SoldItem> soldItems) {
@@ -78,20 +87,15 @@ public class Sale implements DisplayableItem {
         this.id = id;
     }
 
+ // Task 2. Refactoring: sale.addItem(stockItem);
 //    public void addSoldItem(SoldItem item) {
-//        item.setSale(this);
-//        soldItems.add(item);
+//    	item.setSale(this);
+//    	soldItems.add(item);
 //    }
-    // Task 2. Refactoring: sale.addItem(stockItem);
-    //public void addItem(SoldItem item) {
-    //	this.getSoldItems().add(item);
-    //}
-    public void addSoldItem(SoldItem item) {
-    	item.setSale(this);
-    	soldItems.add(item);
+    public void addItem(SoldItem item) {
+        this.getSoldItems().add(item);
     }
-    // TODO: // create the SoldItem object if needed and add it to the sale or use already existing one and change the quantity
-
+    
     public double getSum() {
         double sum = 0.0;
         for (SoldItem item : soldItems) {

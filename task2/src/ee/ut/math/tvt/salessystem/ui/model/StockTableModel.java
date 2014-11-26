@@ -107,10 +107,10 @@ public class StockTableModel extends SalesSystemTableModel<StockItem> {
 		return rows;
 	}
 	
-//	@Override
-//	public void clear() {
-//		rows = new ArrayList<StockItem>();
-//		fireTableDataChanged();
-//	}
+	@Override
+	public void clear() {
+		rows = new ArrayList<StockItem>();
+		fireTableDataChanged();
+	}
 
 }

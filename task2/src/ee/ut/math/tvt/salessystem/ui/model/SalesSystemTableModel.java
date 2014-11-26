@@ -66,12 +66,12 @@ public abstract class SalesSystemTableModel<T extends DisplayableItem> extends
 //        return rows;
 //    }
     public abstract List<T> getTableRows();
-    //public abstract void clear();
+    public abstract void clear();
 
-    public void clear() {
-        this.getTableRows().clear(); //rows = new ArrayList<T>();
-        fireTableDataChanged();
-    }
+//    public void clear() {
+//        this.getTableRows().clear(); //rows = new ArrayList<T>();
+//        fireTableDataChanged();
+//    }
 
     public void populateWithData(final List<T> data) {
         this.getTableRows().clear(); //rows.clear();

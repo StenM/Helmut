@@ -62,9 +62,9 @@ public class PurchaseHistoryTableModel extends SalesSystemTableModel<Sale> {
 		return rows;
 	}
 	
-//	@Override
-//	public void clear() {
-//		rows = new ArrayList<Sale>();
-//		fireTableDataChanged();
-//	}
+	@Override
+	public void clear() {
+		rows = new ArrayList<Sale>();
+		fireTableDataChanged();
+	}
 }
