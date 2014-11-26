@@ -1,0 +1,32 @@
+2014-11-27 00:04:38,433 [main] DEBUG - Strating SalesSystem with the Swing UI ..
+2014-11-27 00:04:39,705 [main] INFO - 9 items loaded from disk
+2014-11-27 00:04:39,726 [main] INFO - 1 clients loaded from disk
+2014-11-27 00:04:39,844 [main] INFO - 15 Sales loaded from disk
+2014-11-27 00:04:40,690 [main] INFO - SalesSystem started
+2014-11-27 00:04:44,806 [AWT-EventQueue-0] INFO - 9 items loaded from disk
+2014-11-27 00:04:44,807 [AWT-EventQueue-0] INFO - Stock tab refresh
+2014-11-27 00:04:44,817 [AWT-EventQueue-0] INFO - 15 Sales loaded from disk
+2014-11-27 00:04:44,818 [AWT-EventQueue-0] INFO - History tab refresh
+2014-11-27 00:04:44,826 [AWT-EventQueue-0] INFO - 1 clients loaded from disk
+2014-11-27 00:04:44,827 [AWT-EventQueue-0] INFO - Client tab refresh
+2014-11-27 00:04:47,580 [AWT-EventQueue-0] INFO - New sale process started
+2014-11-27 00:04:47,580 [AWT-EventQueue-0] INFO - New purchase started
+2014-11-27 00:04:47,595 [AWT-EventQueue-0] INFO - 1 clients loaded from disk
+2014-11-27 00:04:48,890 [AWT-EventQueue-0] INFO - Client Toomas with ID=1 got selected.
+2014-11-27 00:04:49,776 [AWT-EventQueue-0] DEBUG - Added Layz krõpsud quantity of 1
+2014-11-27 00:04:57,074 [AWT-EventQueue-0] INFO - Sale complete
+2014-11-27 00:04:57,075 [AWT-EventQueue-0] DEBUG - Contents of the current basket:
+Id	Name	Price	Quantity	Sum	
+null	Layz krõpsud	10.5	1	10.5	
+
+2014-11-27 00:04:57,198 [AWT-EventQueue-0] INFO - Purchase registered
+2014-11-27 00:04:58,146 [AWT-EventQueue-0] INFO - 9 items loaded from disk
+2014-11-27 00:04:58,147 [AWT-EventQueue-0] INFO - Stock tab refresh
+2014-11-27 00:04:58,157 [AWT-EventQueue-0] INFO - 16 Sales loaded from disk
+2014-11-27 00:04:58,157 [AWT-EventQueue-0] INFO - History tab refresh
+2014-11-27 00:04:58,165 [AWT-EventQueue-0] INFO - 1 clients loaded from disk
+2014-11-27 00:04:58,165 [AWT-EventQueue-0] INFO - Client tab refresh
+2014-11-27 00:04:59,963 [AWT-EventQueue-0] INFO - 16 Sales loaded from disk
+2014-11-27 00:04:59,963 [AWT-EventQueue-0] INFO - History tab refresh
+2014-11-27 00:04:59,971 [AWT-EventQueue-0] INFO - 1 clients loaded from disk
+2014-11-27 00:04:59,971 [AWT-EventQueue-0] INFO - Client tab refresh
