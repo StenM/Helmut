@@ -49,8 +49,7 @@ public class StockTableModelTest {
     @Test
     public void testGetItemByIdWhenItemExists(){
     	model0.addItem(item1);
-    	assertEquals(model0.getItemById(0), item1);
-    	
+    	assertEquals(model0.getItemById(0), item1);	
     }
     
     
